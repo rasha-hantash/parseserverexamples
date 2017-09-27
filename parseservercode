@@ -1,0 +1,210 @@
+public class MainActivity extends AppCompatActivity {
+
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+  /*
+    //saving the user's score on parse , create a parse object
+    ParseObject score = new ParseObject("Score"); //"Score" is the class name
+
+    //adding data into the score object,
+    //variable username with a value of rob as a new object,
+    // within the score class
+    score.put("username", "rob");
+
+    //variable username with a value of 86 (int)
+    score.put("score", 86);
+
+    //saveInBackground is the standard to save objects
+    //saveEventually saves as soon as possible,
+    // like if the user is offline and gets eventually back online
+    score.saveInBackground(new SaveCallback() {
+      @Override
+      public void done(ParseException e) {
+        //checks to make sure save is successful
+        //if exception is null then save was successful
+
+        if(e == null)
+        {
+          Log.i("SaveInBackground", "Successful");
+
+        } else {
+
+          Log.i("SaveInBackground", "Failed. Error:" + e.toString());
+        }
+      }
+    });
+  */
+
+
+  /*
+    //bring back data from parse server, use a parse query
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("Score"); //we want to query score
+
+    //need to provide object id found in bitnami parse
+    query.getInBackground("RKq9offtLs", new GetCallback<ParseObject>() {
+      @Override
+      public void done(ParseObject object, ParseException e) {
+        if (e == null && object != null)
+        {
+            //updates and saves the score
+            object.put("score", 200);
+            object.saveInBackground();
+            //getting object back from parse
+          Log.i("ObjectValue", object.get("username").toString());
+          Log.i("ObjectValue", Integer.toString(object.getInt("score")));
+        }
+      }
+    });
+
+   */
+
+    /*
+    //Create a Tweet class, username tweet, save on Parse, then query it, and update the tweet content
+
+      ParseObject tweet = new ParseObject("Tweet");
+
+      tweet.put("username", "tommy");
+      tweet.put("tweet", "Hey there!");
+
+      tweet.saveInBackground(new SaveCallback() {
+          @Override
+          public void done(ParseException e) {
+              if(e == null)
+              {
+                  Log.i("Tweet", "Successful");
+              } else {
+                  Log.i("Tweet", "Failed");
+              }
+          }
+      });
+    */
+
+    /*
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("Tweet");
+
+      query.getInBackground("m5FJY3UKhV", new GetCallback<ParseObject>() {
+          @Override
+          public void done(ParseObject object, ParseException e) {
+              if(e == null && object != null)
+              {
+                  Log.i("Tweet", "Successful");
+
+                  object.put("tweet", "Bye!");
+                  object.saveInBackground();
+
+              } else
+              {
+                Log.i("Tweet", "Failed");
+              }
+          }
+      });
+      */
+
+    /*
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("Score");
+
+      //want to find a specific object
+      query.whereEqualTo("username", "tommy");
+      query.setLimit(1); //limits return to 1, even though we are only going to get 1 object returned anyway
+      //finds list of objects
+      query.findInBackground(new FindCallback<ParseObject>() {
+          @Override
+          public void done(List<ParseObject> objects, ParseException e) {
+              if(e == null)
+              {
+                  Log.i("findInBackground", "Retrieved" + objects.size() + "objects");
+
+                  if (objects.size() > 0)
+                  {
+                      //loops through object and shows use the username value
+                      for (ParseObject object : objects)
+                      {
+                          Log.i("findInBackgroundResult", Integer.toString(object.getInt("score")));
+                      }
+                  }
+              }
+          }
+      });
+    */
+    /*
+    //increase score by 50 if user has a score greater than 200
+
+      ParseQuery<ParseObject> query = ParseQuery.getQuery("Score");
+
+      query.whereGreaterThan("score", 200);
+
+      query.findInBackground(new FindCallback<ParseObject>() {
+          @Override
+          public void done(List<ParseObject> objects, ParseException e) {
+              if(e == null && objects != null)
+              {
+                  for(ParseObject object : objects)
+                  {
+                      object.put("score", object.getInt("score") + 50);
+                      object.saveInBackground();
+                  }
+              }
+          }
+      });
+
+  */
+
+    /*
+    //create a user and sign them up
+
+      ParseUser user = new ParseUser();
+
+      user.setUsername("rashahantash");
+      user.setPassword("password");
+
+      //sign the user up,
+      user.signUpInBackground(new SignUpCallback() {
+          @Override
+          public void done(ParseException e) {
+
+              if(e == null)
+              {
+                  Log.i("Sign up", "Successful");
+              } else {
+                  Log.i("Sign up", "Failed");
+              }
+          }
+      });
+      */
+
+    /*
+    //log a user in
+      ParseUser.logInInBackground("rashasaadeh", "wrongpassword", new LogInCallback() {
+          @Override
+          public void done(ParseUser user, ParseException e) {
+              if(user != null)
+              {
+                  Log.i("Login", "Successful");
+              } else {
+                  Log.i("Login", "Failed");
+              }
+          }
+      });
+      */
+
+      //how to log out the user if the user chooses to
+      ParseUser.logOut(); //if code is removed, then user can log in
+
+      //test to see if a user logged in when app opens up
+      //this returned current user user logged in rashasaadeh
+      if(ParseUser.getCurrentUser() != null)
+      {
+          Log.i("currentUser", "User logged in " + ParseUser.getCurrentUser().getUsername());
+
+      } else {
+          Log.i("currentUser", "User not logged in");
+      }
+
+
+    ParseAnalytics.trackAppOpenedInBackground(getIntent());
+  }
+
+}
